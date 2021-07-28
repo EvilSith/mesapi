@@ -1,0 +1,58 @@
+swagger: "2.0"
+info:
+  description: "Simple send messages and documents telegram."
+  version: "1.0.0"
+  title: "MesAPI"
+basePath: ""
+tags:
+- name: "message"
+  description: "Отправка сообщения"
+- name: "document"
+  description: "Отправка файла"
+schemes:
+- "http"
+- "https"
+paths:
+  /api/mes:
+    get:
+      tags:
+      - "message"
+      summary: "?chat_id={chat_id}&text={text}"
+      description: ""
+      operationId: "mes"
+      parameters:
+      - in: "query"
+        name: "chat_id"
+        description: ""
+        required: true
+      - in: "query"
+        name: "text"
+        description: ""
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+  /api/doc:
+    post:
+      tags:
+      - "document"
+      summary: "?chat_id={chat_id}&document={document}&caption={caption}"
+      description: ""
+      operationId: "mes"
+      parameters:
+      - in: "query"
+        name: "chat_id"
+        description: ""
+        required: true
+      - in: "formData"
+        name: "document"
+        description: ""
+        required: true
+        type: file
+      - in: "query"
+        name: "caption"
+        description: ""
+        required: false
+      responses:
+        "200":
+          description: "successful operation"

@@ -1,0 +1,3 @@
+Hello from file!!
+
+It's all for tests!)

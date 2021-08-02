@@ -1,0 +1,136 @@
+{
+  "info": {
+    "name": "Common",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Common",
+      "item": [
+        {
+          "name": "Reset wiremock Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:1080/mockserver/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add expectation to wiremock",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n  {\r\n    \"httpRequest\": {\r\n      \"path\": \"/simpleFirst\"\r\n    },\r\n    \"httpResponse\": {\r\n      \"body\": \"some first response\"\r\n    }\r\n  },\r\n  {\r\n    \"httpRequest\": {\r\n      \"path\": \"/simpleSecond\"\r\n    },\r\n    \"httpResponse\": {\r\n      \"body\": \"some second response\"\r\n    }\r\n  }\r\n]\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:1080/mockserver/expectation",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "expectation"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verify mockserver",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 202\", function () {\r",
+                  "    pm.response.to.have.status(202);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"httpRequest\": {\r\n        \"method\":\"POST\",\r\n        \"path\": \"/botYYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ/sendMessage\"\r\n    },\r\n    \"times\": {\r\n        \"atLeast\": 1\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:1080/mockserver/verify",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "mock-server-hostname",
+      "value": "http://localhost:1080"
+    }
+  ]
+}

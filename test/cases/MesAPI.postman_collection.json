@@ -1,0 +1,516 @@
+{
+  "info": {
+    "name": "MesAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Проверка отправки сообщения в телеграмм",
+      "item": [
+        {
+          "name": "Сбросить MockServer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:1080/mockserver/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Замокировать телеграмм апи",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"httpRequest\": {\r\n            \"method\": \"POST\",\r\n            \"path\": \"/botYYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ/sendMessage\",\r\n            \"headers\": {\r\n                \"Content-Type\": [\r\n                    \"application/x-www-form-urlencoded\"\r\n                ]\r\n            },\r\n            \"body\": \"chat_id=XXXXXXX&text=123&parse_mode=markdown\"\r\n        },\r\n        \"httpResponse\": {\r\n            \"statusCode\" : 200\r\n        }\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{mock-server-hostname}}/mockserver/expectation",
+              "host": [
+                "{{mock-server-hostname}}"
+              ],
+              "path": [
+                "mockserver",
+                "expectation"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Отправить сообщение",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-hostname}}/api/mes?text=123",
+              "host": [
+                "{{api-hostname}}"
+              ],
+              "path": [
+                "api",
+                "mes"
+              ],
+              "query": [
+                {
+                  "key": "text",
+                  "value": "123"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Проверить что хотя бы один раз дергается апи телеграмма",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 202\", function () {\r",
+                  "    pm.response.to.have.status(202);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"httpRequest\": {\r\n            \"method\": \"POST\",\r\n            \"path\": \"/botYYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ/sendMessage\",\r\n            \"headers\": {\r\n                \"Content-Type\": [\r\n                    \"application/x-www-form-urlencoded\"\r\n                ]\r\n            },\r\n            \"body\": \"chat_id=XXXXXXX&text=123&parse_mode=markdown\"\r\n    },\r\n    \"times\": {\r\n        \"atLeast\": 1\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:1080/mockserver/verify",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Проверка отправки файла в телеграмм",
+      "item": [
+        {
+          "name": "Сбросить MockServer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:1080/mockserver/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Замокировать телеграмм апи",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\r\n    {\r\n        \"httpRequest\": {\r\n            \"method\": \"POST\",\r\n            \"path\": \"/botYYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ/sendDocument\",\r\n            \"headers\": {\r\n                \"Content-Type\": [\r\n                    \"multipart/form-data; boundary=(.{32})\"\r\n                ]\r\n            },\r\n            \"keepAlive\": true,\r\n            \"secure\": false,\r\n            \"body\": {\r\n                \"type\": \"REGEX\",\r\n                \"regex\": \"--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"chat_id\\\\\\\"\\\\r\\\\n\\\\r\\\\nXXXXXXX\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"parse_mode\\\\\\\"\\\\r\\\\n\\\\r\\\\nmarkdown\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"Content-Type\\\\\\\"; filename=\\\\\\\"Content-Type\\\\\\\"\\\\r\\\\n\\\\r\\\\nmultipart/form-data; boundary=\\\\\\\"----boundary\\\\\\\"\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"MIME-Version\\\\\\\"; filename=\\\\\\\"MIME-Version\\\\\\\"\\\\r\\\\n\\\\r\\\\n1.0\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"document\\\\\\\"; filename=\\\\\\\"example.txt\\\\\\\"\\\\r\\\\n\\\\r\\\\nHello from file!!\\\\n\\\\nIt's all for tests!\\\\)\\\\n\\\\r\\\\n--(.{32})--\\\\r\\\\n\"\r\n            }\r\n        },\r\n        \"httpResponse\": {\r\n            \"statusCode\": 200\r\n        }\r\n    }\r\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{mock-server-hostname}}/mockserver/expectation",
+              "host": [
+                "{{mock-server-hostname}}"
+              ],
+              "path": [
+                "mockserver",
+                "expectation"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Отправить сообщение",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document",
+                  "type": "file",
+                  "src": "cases/example.txt"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api-hostname}}/api/doc",
+              "host": [
+                "{{api-hostname}}"
+              ],
+              "path": [
+                "api",
+                "doc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Проверить что хотя бы один раз дергается апи телеграмма",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 202\", function () {\r",
+                  "    pm.response.to.have.status(202);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"httpRequest\": {\r\n            \"method\": \"POST\",\r\n            \"path\": \"/botYYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ/sendDocument\",\r\n            \"headers\": {\r\n                \"Content-Type\": [\r\n                    \"multipart/form-data; boundary=(.{32})\"\r\n                ]\r\n            },\r\n            \"keepAlive\": true,\r\n            \"secure\": false,\r\n            \"body\": {\r\n                \"type\": \"REGEX\",\r\n                \"regex\": \"--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"chat_id\\\\\\\"\\\\r\\\\n\\\\r\\\\nXXXXXXX\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"parse_mode\\\\\\\"\\\\r\\\\n\\\\r\\\\nmarkdown\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"Content-Type\\\\\\\"; filename=\\\\\\\"Content-Type\\\\\\\"\\\\r\\\\n\\\\r\\\\nmultipart/form-data; boundary=\\\\\\\"----boundary\\\\\\\"\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"MIME-Version\\\\\\\"; filename=\\\\\\\"MIME-Version\\\\\\\"\\\\r\\\\n\\\\r\\\\n1.0\\\\r\\\\n--(.{32})\\\\r\\\\nContent-Disposition: form-data; name=\\\\\\\"document\\\\\\\"; filename=\\\\\\\"example.txt\\\\\\\"\\\\r\\\\n\\\\r\\\\nHello from file!!\\\\n\\\\nIt's all for tests!\\\\)\\\\n\\\\r\\\\n--(.{32})--\\\\r\\\\n\"\r\n            }\r\n        },\r\n    \"times\": {\r\n        \"atLeast\": 1\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:1080/mockserver/verify",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Проверка страницы приветствия",
+      "item": [
+        {
+          "name": "Сбросить MockServer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:1080/mockserver/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получить и проверить страницу приветствия",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('validate html', function () {\r",
+                  "    const $ = cheerio.load(pm.response.text());\r",
+                  "    pm.expect($(\"body > h1 ~ p:nth-of-type(1)\").text()).to.equal(\"Simple send messages and documents telegram.\");\r",
+                  "    pm.expect($(\"body > h2:nth-of-type(1)\").text()).to.equal(\"Отправить сообщение\");\r",
+                  "    pm.expect($(\"body > h2:nth-of-type(1) + h3\").text()).to.equal(\"GET\");\r",
+                  "    pm.expect($(\"body > h2:nth-of-type(1) + h3 + p\").text()).to.equal(\"/api/mes\");\r",
+                  "    pm.expect($(\"body > h2:nth-of-type(2)\").text()).to.equal(\"Отправить документ\");\r",
+                  "    pm.expect($(\"body > h2:nth-of-type(2) + h3\").text()).to.equal(\"GET, POST\");\r",
+                  "    pm.expect($(\"body > h2:nth-of-type(2) + h3 + p\").text()).to.equal(\"/api/doc\");\r",
+                  "    pm.expect($(\"body a\").attr('href')).to.equal(\"/api\");\r",
+                  "    pm.expect($(\"body a\").text()).to.equal(\"SWAGGER\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-hostname}}",
+              "host": [
+                "{{api-hostname}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Проверка Swagger",
+      "item": [
+        {
+          "name": "Сбросить MockServer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:1080/mockserver/reset",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "1080",
+              "path": [
+                "mockserver",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получить и проверить страницу Swagger UI",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-hostname}}/api",
+              "host": [
+                "{{api-hostname}}"
+              ],
+              "path": [
+                "api"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Получить и проверить страницу схемы Swagger",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-hostname}}/swagger.yaml",
+              "host": [
+                "{{api-hostname}}"
+              ],
+              "path": [
+                "swagger.yaml"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "mock-server-hostname",
+      "value": "http://localhost:1080"
+    },
+    {
+      "key": "api-hostname",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

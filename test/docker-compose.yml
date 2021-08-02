@@ -1,0 +1,21 @@
+version: '2.1'
+
+services:
+  mock-server:
+    image: mockserver/mockserver
+    command: -logLevel INFO -serverPort 1080
+    ports:
+      - "1080:1080"
+  mes-api:
+    image: mes-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      mock-server:
+        condition: service_started
+    links:
+      - mock-server
+    environment:
+      DEF_CHAT_ID: "XXXXXXX"
+      TOKEN: "YYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+

@@ -1,0 +1,7 @@
+logging.level.springfox.documentation: DEBUG
+springfox.documentation.swagger-ui.base-url: /documentation
+
+telegram-api: "https://api.telegram.org"
+telegram-token: "YYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+default-message: "Default text message"
+default-chat-id: "XXXXXXX"

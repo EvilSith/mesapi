@@ -7,7 +7,7 @@ services:
     ports:
       - "1080:1080"
   mes-api:
-    image: mes-api
+    image: java-spring:0.0.1-SNAPSHOT
     ports:
       - "8080:8080"
     depends_on:
@@ -16,6 +16,6 @@ services:
     links:
       - mock-server
     environment:
-      DEF_CHAT_ID: "XXXXXXX"
-      TOKEN: "YYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
-
+      TELEGRAM_API: "http://mock-server:1080"
+      TELEGRAM_TOKEN: "YYYYYYYY:ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+      DEFAULT_CHAT_ID: "XXXXXXX"

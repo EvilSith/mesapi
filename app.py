@@ -14,11 +14,11 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/api/mes', methods=['GET'])
+@app.route('/api/mes', methods=['GET', 'POST'])
 def message():
-    query_parameters = request.args
-    text = query_parameters.get('text', default=DEF_TEXT)
-    chat_id = query_parameters.get('chat_id', default=os.getenv('DEF_CHAT_ID'))
+    request_parameters = request.args if request.method == 'GET' else request.form
+    text = request_parameters.get('text', default=DEF_TEXT)
+    chat_id = request_parameters.get('chat_id', default=os.getenv('DEF_CHAT_ID'))
     sendmes_telegram(text, chat_id)
     return Response(status=200)
 

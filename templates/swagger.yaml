@@ -23,10 +23,31 @@ paths:
       parameters:
       - in: "query"
         name: "chat_id"
-        description: ""
-        required: true
+        description: "if empty sent to default chat id from env DEF_CHAT_ID"
+        required: false
       - in: "query"
         name: "text"
+        description: ""
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+    post:
+      tags:
+        - "message"
+      consumes:
+        - "application/x-www-form-urlencoded"
+      description: ""
+      operationId: "post mes"
+      parameters:
+      - in: "formData"
+        name: "chat_id"
+        type: "string"
+        description: "if empty sent to default chat id from env DEF_CHAT_ID"
+        required: false
+      - in: "formData"
+        name: "text"
+        type: "string"
         description: ""
         required: true
       responses:

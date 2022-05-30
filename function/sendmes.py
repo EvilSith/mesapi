@@ -11,7 +11,7 @@ def sendmes_telegram(text: str, chat_id):
     r = requests.post(method, data={
         "chat_id": chat_id,
         "text": text,
-        "parse_mode": "markdown"
+        "parse_mode": "markdown",
         "disable_web_page_preview": "true"
         })
     validate(r)

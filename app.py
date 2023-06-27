@@ -2,10 +2,7 @@
 
 import os
 from conf.config import DEF_TEXT
-from conf.config import SEND_DOC_RETRY_COUNT
-from conf.config import SEND_DOC_RETRY_DELAY_IN_SECONDS
-from conf.config import SEND_MES_RETRY_COUNT
-from conf.config import SEND_MES_RETRY_DELAY_IN_SECONDS
+from conf.config import *
 from function.sendmes import sendmes_telegram
 from function.senddoc import senddoc_telegram
 from function.retry import retry

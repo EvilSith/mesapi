@@ -1,7 +1,6 @@
 
 from conf.config import URL
 import os
-from function.validate import validate
 import requests
 from email.mime.multipart import MIMEMultipart
 
@@ -13,9 +12,9 @@ def senddoc_telegram(document, chat_id, caption):
 
     method = URL + os.getenv('TOKEN') + "/sendDocument"
 
-    r = requests.post(method, data={
+    response = requests.post(method, data={
         "chat_id": chat_id,
         "parse_mode": "markdown",
         "caption": caption
         }, files=files)
-    validate(r)
+    response.raise_for_status()

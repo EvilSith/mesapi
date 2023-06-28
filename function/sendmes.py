@@ -1,6 +1,5 @@
 from conf.config import URL
 import os
-from function.validate import validate
 import requests
 
 
@@ -20,4 +19,4 @@ def sendmes_telegram(text: str, chat_id):
     }
 
     response = requests.post(method, data=body, headers=headers)
-    validate(response)
+    response.raise_for_status()
